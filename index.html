@@ -8,30 +8,41 @@
     <script src="scripts.js" defer></script>
 </head>
 <body>
+<div class="main-container">
+    <div class="header">
+    </div>
+    <div class="add-new-area">
+    <button id="add-new" command="show-modal" commandfor="input-modal">+ Add new book</button>
+    </div>
     <div id="container">
     </div>
-    <button id="add-new" command="show-modal" commandfor="input-modal">Add new book</button>
 
     <dialog id="input-modal">
         <button commandfor="input-modal" command="close">Close</button>
-        <form id="input-form" method="POST">
+        <form id="input-form">
 
-            <label for="booktitle">Book title:</label>
-            <input type="text" id="booktitle" />
+            <div>
+                <input type="text" id="booktitle" placeholder="Title" required />
+            </div>
 
-            <label for="bookauthor">Author:</label>
-            <input type="text" id="bookauthor"/>
+            <div>
+                <input type="text" id="bookauthor" placeholder="Author" required/>
+            </div>
 
-            <label for="pagecount">Page count:</label>
-            <input type="number" id="pagecount"/>
+            <div>
 
-            <label for="read">Read:</label>
-            <input type="checkbox" id="read">
+                <input type="number" id="pagecount" placeholder="Pages" required/>
+            </div>
 
-            <button id="submit">Add Book</button>
+            <div>
+                <label for="read">Have you read it?</label>
+                <input type="checkbox" id="read"/>
+            </div>
+
+            <button type="submit" id="submit-btn">Add book</button>
         </form>
     </dialog>
-
+</div>  
     
 </body>
 </html>

@@ -9,6 +9,17 @@ function Book(title, author, pagecount, read, uuid) {
     this.pagecount = pagecount;
     this.read = read;
     this.id = uuid;
+    this.toggleRead = () => {
+        if (this.read) {
+            this.read = false;
+            console.log(this.read);
+            displayAllBooks();
+        } else if (!this.read) {
+            this.read = true;
+            console.log(this.read);
+            displayAllBooks();
+        }
+    }
 }
 
 function addBookToLibrary(title, author, pagecount, read) {
@@ -24,30 +35,40 @@ function displayAllBooks() {
     document.getElementById("container").innerHTML = '';
     for (book of myLibrary) {
         console.log(book);
+        const bookID = book.id
         const libraryContainer = document.getElementById("container");
         const newCard = document.createElement("div");
         newCard.className = 'book-card';
         libraryContainer.appendChild(newCard);
         
         const newTitle = document.createElement("p");
-        newTitle.textContent = ("Title: " + book.title);
+        newTitle.className = "info"
+        newTitle.textContent = ('"' + book.title + '"');
         newCard.appendChild(newTitle);
 
         const newAuthor = document.createElement("p");
-        newAuthor.textContent = ("Author: " + book.author);
+        newAuthor.className = "info"
+        newAuthor.textContent = (book.author);
         newCard.appendChild(newAuthor);
 
         const newPages = document.createElement("p");
-        newPages.textContent = ("Page Count: " + book.pagecount);
+        newPages.className = "info"
+        newPages.textContent = (book.pagecount + " pages");
         newCard.appendChild(newPages);
 
-        const beenRead = document.createElement("p");
-        beenRead.textContent = ("Read:" + book.read);
-        newCard.appendChild(beenRead)
-        
+        const read = document.createElement("button");
+        if (book.read) {
+            read.textContent = "Read"
+            read.className = "read btn"
+        } else if (!book.read) {
+            read.textContent = "Unread"
+            read.className = "unread btn"}
+        newCard.appendChild(read);        
+        read.addEventListener("click", () => toggleReadBook(bookID));
+
         const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Remove book";
-        deleteButton.className = "remove-book";
+        deleteButton.textContent = "Remove";
+        deleteButton.className = "remove-book btn";
         deleteButton.id = book.id;
         newCard.appendChild(deleteButton);
         deleteButton.addEventListener("click", () => removeBook(deleteButton.id));
@@ -58,7 +79,10 @@ function displayAllBooks() {
 displayAllBooks();
 
 
-document.getElementById("input-form").addEventListener("submit", submitBook);
+const form = document.getElementById("input-form");
+const modal = document.getElementById("input-modal");
+
+form.addEventListener("submit", submitBook);
 
 function submitBook(e) {
     e.preventDefault();
@@ -77,6 +101,7 @@ function submitBook(e) {
 
     addBookToLibrary(title, author, pagecount, read);
     displayAllBooks();
+    modal.close();
 }
 
 
@@ -87,4 +112,9 @@ function removeBook(UUID) {
     myLibrary.splice(index, 1)
     displayAllBooks();
     
+}
+
+function toggleReadBook(UUID) {
+    const targetBook = myLibrary.find(book => book.id === UUID)
+    targetBook.toggleRead();
 }
