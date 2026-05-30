@@ -28,8 +28,8 @@ function addBookToLibrary(title, author, pagecount, read) {
 }
 
 
-addBookToLibrary("The Bible", "God", "Infinite", true);
-addBookToLibrary("The Bible 2", "Jesus", "4", false)
+addBookToLibrary("The Hobbit", "J.R.R Tolkien", "320", false);
+addBookToLibrary("Alice's Adventures In Wonderland", "Lewis Carroll", "144", false)
 
 function displayAllBooks() {
     document.getElementById("container").innerHTML = '';
@@ -47,12 +47,12 @@ function displayAllBooks() {
         newCard.appendChild(newTitle);
 
         const newAuthor = document.createElement("p");
-        newAuthor.className = "info"
+        newAuthor.className = "info author"
         newAuthor.textContent = (book.author);
         newCard.appendChild(newAuthor);
 
         const newPages = document.createElement("p");
-        newPages.className = "info"
+        newPages.className = "info pages"
         newPages.textContent = (book.pagecount + " pages");
         newCard.appendChild(newPages);
 
