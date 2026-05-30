@@ -93,6 +93,10 @@ input {
     align-self: center;
 }
 
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    display: none;
+}
 
 input[type=checkbox] {
     transform: scale(1.5);
